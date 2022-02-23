@@ -1,149 +1,226 @@
-import React ,{useState} from "react";
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-
 export default function Header(props) {
 
-  const [color, setColor] = useState("");
-let bell='';
-let col = '';
-let ml='';
-let btnc='dark';
-const ChangeColor=(event)=>{ 
-  document.getElementById('navbg').style.backgroundColor = color;
-  if(props.them==='light'){
-  setColor('');
+  function offhome() {
+    document.getElementsByClassName("navtexthome")[0].style.visibility =
+      "hidden";
   }
-  else if(props.them==='dark'){
-  let inputcl =  document.getElementsByClassName('color')[0].value;
-  if(inputcl==='#000000'){
-    inputcl='';
+
+  function onabout() {
+    document.getElementsByClassName("navtextabout")[0].style.visibility =
+      "visible";
+    var x = window.matchMedia("(max-width: 591px)");
+    myFunction(x);
   }
-  props.btncl(inputcl);
-  // console.log(color);
+
+  function offabout() {
+    document.getElementsByClassName("navtextabout")[0].style.visibility =
+      "hidden";
   }
-  // if(props.them==='dark'){
-  //   setColor('');
-  // }
-  setColor(event.target.value);
+
+  function onservices() {
+    document.getElementsByClassName("navtextservices")[0].style.visibility =
+      "visible";
+    var x = window.matchMedia("(max-width: 591px)");
+    myFunction(x);
   }
-  if(props.them==='dark'){
-  bell =  "Custom :"
-  col='color';
-  ml=<input type={col} className="form-control form-control-color color d-inline-block mx-1" id="ColorInput" value={color} onChange={ChangeColor} title="Choose navbar's color"></input>;
-  btnc= 'light'; 
-  document.getElementById('navbg').style.backgroundColor = color;
+
+  function offservices() {
+    document.getElementsByClassName("navtextservices")[0].style.visibility =
+      "hidden";
   }
+
+  function onsettings() {
+    document.getElementsByClassName("navtextsettings")[0].style.visibility =
+      "visible";
+    var x = window.matchMedia("(max-width: 591px)");
+    myFunction(x);
+  }
+
+  function offsettings() {
+    document.getElementsByClassName("navtextsettings")[0].style.visibility =
+      "hidden";
+  }
+
+  function onhome() {
+    document.getElementsByClassName("navtexthome")[0].style.visibility =
+      "visible";
+
+    var x = window.matchMedia("(max-width: 591px)");
+    x.addListener(myFunction);
+    myFunction(x);
+  
+}
+  function myFunction(x) {
+    if (x.matches) {
+      setTimeout(() => {
+        for (let i = 0; i < 4; i++) {
+          document.getElementsByClassName("navtextitem")[i].style.visibility =
+            "hidden";
+        }
+      }, 1500);
+    }
+  }
+
   return (
-    
     <>
-      <nav
-        className={` navbar navbar-expand-lg ${props.them==='light'?`navbar-${props.them} bg-${props.them}`:color==='#000000'||color===''?`navbar-${props.them} bg-${props.them}`:`navbar-${props.them}`} `} id='navbg'
-      >
-        <div className="container-fluid head">
-          <Link className="navbar-brand" to="/">
-            React {props.title}
-          </Link>
-          <button
-            className="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span className="navbar-toggler-icon"></span>
-          </button>
-          <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-              <li className="nav-item">
-                <Link className={`nav-link ${props.homea===true?'active':''}`} aria-current="page" to="/">
-                  Home
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="/">
-                  {props.services}
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link className={`nav-link ${props.ab===true?'active':''}`} to="/about">
-                  About
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="/">
-                  More
-                </Link>
-              </li>
-            </ul>
 
-            <div className='d-inline'>
-              <img
-                width="24px"
-                className="mx-2 my-2"
-                src={
-                  props.them === "dark" ? "../index.png" : "../light_mode.png"
-                } 
-                alt=""
-              />
-
-              <div className="form-check form-switch d-inline-block mx-0"><input
-                  className="form-check-input switch"
-                  type="checkbox"
-                  onClick={props.chth}
-                  role="switch"
-                  id="flexSwitchCheckDefault"
+        <nav className="navhead navbar navbar-expand-lg my-0 rounded-top px-3 navbar-dark">
+          <div className="container-fluid">
+            <ul className="ul-nav d-flex  navbar-nav justify-content-end me-auto mb-0 mb-lg-0">
+              <Link to="/" className="navbar-brand">
+                <img
+                  className="mainlogo"
+                  src="../mainlogo.png"
+                  width="38px"
+                  alt=""
                 />
-                <label
-                  className="form-check-label"
-                  htmlFor="flexSwitchCheckDefault"
-                ></label>
-              </div>
+              </Link>
+              <ul className="ul-nav d-flex  navbar-nav justify-content-end me-auto mb-0 mb-lg-0">
+                <li
+                  onMouseOver={onhome}
+                  onMouseLeave={offhome}
+                  className="home nav-list navitem"
+                >
+                  <Link
+                    to="/"
+                    draggable="false"
+                    className="nav-link m-auto active"
+                    aria-current="page"
+                  >
+                    <img
+                      className="imgico"
+                      src="../Home.ico"
+                      width="32px"
+                      alt=""
+                    />
+                  </Link>
+                </li>
+                <li
+                  onMouseOver={onabout}
+                  onMouseLeave={offabout}
+                  className="home about mx-3  navitem"
+                >
+                  <Link
+                    to="/UtilTex"
+                    draggable="false"
+                    className="nav-link m-auto active"
+                    aria-current="page"
+                  >
+                    <img
+                      className="imgico"
+                      src="../information.ico"
+                      width="32px"
+                      alt=""
+                    />
+                  </Link>
+                </li>
 
-              <img
-                width="24px"
-                className="mx-1 my-2 "
-                src={
-                  props.them === "light"
-                    ? "../dark_Mode.png"
-                    : "../download.png"
-                }
-                alt=""
-              />
-            </div>
-            {/* <div className="giu border d-inline-block"> */}
-          <label htmlFor="exampleColorInput" className="wid form-label d-inline mx-1 labelcustom ">{bell}</label>{ml}
-            {/* </div> */}
+                <li
+                  onMouseOver={onservices}
+                  onMouseLeave={offservices}
+                  className="home  navitem"
+                >
+                  <Link
+                    to="/"
+                    draggable="false"
+                    className="nav-link m-auto active"
+                    aria-current="page"
+                  >
+                    <img
+                      className="imgico"
+                      src="../services.ico"
+                      width="32px"
+                      alt=""
+                    />
+                  </Link>
+                </li>
 
-            <div className="d-inline-block search float-end">
-            <form className="d-flex">
-              <input
-                className="form-control me-2 btn-search"
-                type="search"
-                placeholder="Search..."
-                aria-label="Search"
-              />
-              <button className={`btn btn-outline-${btnc} btn-search  type="submit`}>
-                Search
-              </button>
+                <li
+                  onMouseOver={onsettings}
+                  onMouseLeave={offsettings}
+                  className="home mx-3 settings navitem"
+                >
+                  <Link
+                    to="/"
+                    draggable="false"
+                    className="nav-link m-auto active "
+                    aria-current="page"
+                  >
+                    <img
+                      className="imgico"
+                      src="../settings.ico"
+                      width="32px"
+                      alt=""
+                    />
+                  </Link>
+                </li>
 
-
-            </form>
-            </div>
+                <li>
+                  <button className="navbar-togglerz nav-tog" type="button">
+                    <span>
+                      {" "}
+                      <img width="32px" src="../menu.png" alt="" />{" "}
+                    </span>
+                  </button>
+                </li>
+              </ul>
+            </ul>
           </div>
-        </div>
-      </nav>
+        </nav>
+
+        <nav className="  py-0 navbar nav navtext navbar-expand-lg my-0 rounded-top px-3 navbar-dark   ">
+          <div className="  container-fluid my-0 py-0 ">
+            <ul className="   ul-nav d-flex navbar-nav justify-content-end me-auto mb-0 mb-lg-0 ">
+              <Link to="/" className="navbar-brand ">
+                <img src="../mainlogo.png" height="0px" width="38px" alt="" />
+              </Link>
+              <ul className="  ul-nav d-flex navbar-nav justify-content-end me-auto mb-0 mb-lg-0">
+                <li
+                  id="navtexthome"
+                  title="Home"
+                  className=" text-white home navtexthome navtextitem"
+                >
+                  Home
+                </li>
+                <li
+                  id="navtextabout"
+                  title="About"
+                  className="text-white home mx-3 navtextitem navtextabout"
+                >
+                  About
+                </li>
+
+                <li
+                  id="navtextservices"
+                  title="Services"
+                  className="text-white home navtextitem navtextservices"
+                >
+                  Services
+                </li>
+
+                <li
+                  id="navtextsettings"
+                  title="Settings"
+                  className="navtextsettings text-white home mx-3 navtextitem"
+                >
+                  Settings
+                </li>
+
+                <li>
+                  <button className="navbar-togglerz " type="button">
+                    <span>
+                      {" "}
+                      <img height="0px" src="/menu.png" alt="" />{" "}
+                    </span>
+                  </button>
+                </li>
+              </ul>
+            </ul>
+          </div>
+        </nav>
+
     </>
   );
 }
-
-Header.propTypes = {
-  title: PropTypes.string.isRequired,
-  about: PropTypes.string.isRequired,
-};
-
-Header.defaultProps = {
-  title: "Utiles",
-};
